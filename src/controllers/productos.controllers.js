@@ -1075,7 +1075,7 @@ productosCtrl.crecarFiltrosNavbar = async (req, res, next) => {
 					if (categorias[i]._id !== null) {
 						console.log('entro', i);
 						if (categorias[i]._id) {
-							await Producto.aggregate(
+						const subCategoriasBase =await Producto.aggregate(
 								[
 									{
 										$match: {
@@ -1087,14 +1087,13 @@ productosCtrl.crecarFiltrosNavbar = async (req, res, next) => {
 									}
 								],
 								async function(err, subCategoriasBase) {
-									console.log(subCategoriasBase);
-									console.log(categorias[i]._id);
-									arrayCategorias.push({
-										categoria: categorias[i]._id,
-										subcCategoria: subCategoriasBase
-									});
+									return subCategoriasBase;
 								}
 							);
+							arrayCategorias.push({
+								categoria: categorias[i]._id,
+								subcCategoria: subCategoriasBase
+							});
 						}
 					}
 
