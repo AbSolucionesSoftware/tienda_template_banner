@@ -7,7 +7,7 @@ const bannerCategoria = new Schema({
     },
     estilo: Number,
     banners: [{
-        orientacion: String,
+        orientacion: Number,
         imagenBanner: String,
         vincular: Boolean,
         mostrarProductos: Boolean,
