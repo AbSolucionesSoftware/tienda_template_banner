@@ -33,7 +33,8 @@ const {
 	getProductoSinPaginacion,
 	getProductosIndividuales,
 	actualizarInventario,
-	getProductosFiltradosAdmin
+	getProductosFiltradosAdmin,
+	agruparTemporada
 } = require('../controllers/productos.controllers');
 const auth = require('../middleware/auth');
 
@@ -86,6 +87,8 @@ router.route('/inventario/:id').put(auth,actualizarInventario);
 /* filtros indiviudales para otros, tallas y numeros */
 
 router.route('/filter/individuales').get(getProductosIndividuales);
+
+router.route('/agrupar/temporadas/').get(agruparTemporada)
 
 
 module.exports = router;

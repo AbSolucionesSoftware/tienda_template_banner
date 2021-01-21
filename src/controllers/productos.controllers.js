@@ -1039,6 +1039,22 @@ productosCtrl.subCategorias = async (req, res) => {
 	}
 };
 
+productosCtrl.agruparTemporada = async (req,res) => {
+	try {
+		const temporada = await Producto.aggregate([
+			{
+				$match: {
+					$or: [ { eliminado: { $exists: false } }, { eliminado: false } ]
+				}
+			},
+			{ $group: { _id: '$temporada' } }
+		]);
+		res.status(200).json(temporada);
+	} catch (error) {
+		res.status(500).json({ message: 'Error en el servidor', error });
+	}
+}
+
 productosCtrl.crecarFiltrosNavbar = async (req, res, next) => {
 	try {
 		await Producto.aggregate(
