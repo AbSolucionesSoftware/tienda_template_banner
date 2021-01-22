@@ -1071,9 +1071,7 @@ productosCtrl.crecarFiltrosNavbar = async (req, res, next) => {
 				console.log(categorias);
 				console.log(categorias.length);
 				for (i = 0; i < categorias.length; i++) {
-					console.log(i);
 					if (categorias[i]._id !== null) {
-						console.log('entro', i);
 						if (categorias[i]._id) {
 						const subCategoriasBase =await Producto.aggregate(
 								[
