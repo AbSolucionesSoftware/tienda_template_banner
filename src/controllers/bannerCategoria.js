@@ -129,11 +129,12 @@ bannerCtrl.deleteSubCanner = async (req,res) => {
         const bannerBase = await modelBanner.findById(req.params.idBanner);
         const subBanner = bannerBase.banners;
         const banners = subBanner.filter((x) => x._id == req.params.idSubBanner);
-        banners.map((banner) => {
-            if(banner){
-                
+        banners.map( async (banner) => {
+            if(banner.imagenBanner){
+                imagen.eliminarImagen(banner.imagenBanner);
             }
         })
+
         await modelBanner.updateOne(
             {
                 _id: req.params.idBanner
@@ -157,9 +158,12 @@ bannerCtrl.deleteBanner = async (req,res) => {
     try {
         const bannerBase = await modelBanner.findById(req.params.idBanner);
         if(bannerBase){
-            if(bannerBase.imagenBanner){
-                await imagen.eliminarImagen(bannerBase.imagenBanner)
-            }
+            const subBanner = bannerBase.banners;
+            subBanner.map((banner) => {
+                if(banner.imagenBanner){
+                    imagen.eliminarImagen(banner.imagenBanner);
+                }
+            })
             await modelBanner.findByIdAndDelete(req.params.idBanner);
             res.status(200).json({message: "Banner eliminado."})
         }else{

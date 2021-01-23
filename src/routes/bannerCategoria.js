@@ -7,13 +7,9 @@ router.route('/')
     .get(getBanners)
     .post(createBanner);
 
-router.route('/:idBanner').put(subirImagen,agregateBanner);
+router.route('/:idBanner').put(subirImagen,agregateBanner).delete(deleteBanner);
 
-router.route('/:idBanner/action/:idSubBanner').put(subirImagen,editSubBanner).delete(deleteSubCanner)
-
-/* router.route('/:idBanner')
-    .put(auth,subirImagen,agregateBanner)   
-    .delete(auth,deleteBanner); */
+router.route('/:idBanner/action/:idSubBanner').put(subirImagen,editSubBanner).delete(deleteSubCanner);
 
 router.route('/imagen/:idBanner').delete(auth,eliminarImagen);
 
