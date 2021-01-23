@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 const auth = require('../middleware/auth');
-const {subirImagen,createBanner,getBanners,agregateBanner,deleteBanner,eliminarImagen} = require('../controllers/bannerCategoria');
+const {subirImagen,createBanner,getBanners,agregateBanner,deleteBanner,eliminarImagen,editSubBanner,deleteSubCanner} = require('../controllers/bannerCategoria');
 
 router.route('/')
     .get(getBanners)
@@ -9,7 +9,7 @@ router.route('/')
 
 router.route('/:idBanner').put(subirImagen,agregateBanner);
 
-router.route('/:idBanner/action/:idSubBanner').put()
+router.route('/:idBanner/action/:idSubBanner').put(subirImagen,editSubBanner).delete(deleteSubCanner)
 
 /* router.route('/:idBanner')
     .put(auth,subirImagen,agregateBanner)   
