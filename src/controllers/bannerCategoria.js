@@ -22,6 +22,16 @@ bannerCtrl.getBanners = async (req,res) => {
     }
 }
 
+bannerCtrl.getBannersAdmin = async (req,res) => {
+    try {
+        const banners = await modelBanner.find();
+        res.status(200).json(banners);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error en el servidor",error });
+    }
+}
+
 bannerCtrl.createBanner = async (req,res) => {
     try {
         console.log(req.body);

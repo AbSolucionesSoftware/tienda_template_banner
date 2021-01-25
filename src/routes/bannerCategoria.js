@@ -10,12 +10,15 @@ const {
     eliminarImagen,
     editSubBanner,
     deleteSubCanner,
-    publishedBanner
+    publishedBanner,
+    getBannersAdmin
 } = require('../controllers/bannerCategoria');
 
 router.route('/')
     .get(getBanners)
     .post(auth,createBanner);
+
+router.route('/admin/').get(auth,getBannersAdmin)
 
 router.route('/:idBanner').put(auth,subirImagen,agregateBanner).delete(auth,deleteBanner);
 
