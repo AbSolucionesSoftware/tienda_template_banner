@@ -14,7 +14,7 @@ bannerCtrl.subirImagen = async (req,res,next) => {
 
 bannerCtrl.getBanners = async (req,res) => {
     try {
-        const banners = await modelBanner.find({});
+        const banners = await modelBanner.find({publicado: true});
         res.status(200).json(banners);
     } catch (error) {
         console.log(error);
@@ -26,8 +26,19 @@ bannerCtrl.createBanner = async (req,res) => {
     try {
         console.log(req.body);
         const banner = new modelBanner(req.body);
+        banner.publicado = false;
         await banner.save();
         res.status(200).json({message: "Banner creado correctamente."});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error en el servidor",error });
+    }
+}
+
+bannerCtrl.publishedBanner = async (req,res) => {
+    try {
+        await modelBanner.findByIdAndUpdate(req.params.idBanner,{publicado: true});
+        res.status(200).json({message: "Banner publicado"});
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Error en el servidor",error });
@@ -178,10 +189,48 @@ bannerCtrl.deleteBanner = async (req,res) => {
 
 bannerCtrl.eliminarImagen = async (req,res) => {
     try {
+
         const bannerBase = await modelBanner.findById(req.params.idBanner);
+        const subBanner = bannerBase.banners;
+        const banners = subBanner.filter((x) => x._id == req.params.idSubBanner);
+        //console.log(banners);
+        console.log(req.body);
+        banners.map(async (bannerBase) => {
+            const { orientacion ,vincular ,mostrarProductos ,mostrarTitulo , categoria, temporada} = req.body;
+            
+            const newBanner = {
+                tipo: {}
+            };
+            newBanner.vincular = vincular;
+            newBanner.mostrarProductos = mostrarProductos;
+            newBanner.mostrarTitulo = mostrarTitulo;
+
+            if(orientacion){
+                newBanner.orientacion = orientacion;
+            }
+            if(categoria){
+                newBanner.tipo.categoria = categoria;
+            }
+            if(temporada){
+                newBanner.tipo.temporada = temporada;
+            }
+            console.log(newBanner);
+            await modelBanner.updateOne(
+                {
+                    'banners._id': req.params.idSubBanner
+                },
+                {
+                    $set: { 'banners.$': newBanner}
+                }
+            )
+        })
+
+        res.status(200).json({message: "Registro echo"});
+
+        const bannerEliminar = await modelBanner.findById(req.params.idBanner);
         const newBanner = {};
-        if(bannerBase.imagenBanner){
-            await imagen.eliminarImagen(bannerBase.imagenBanner);
+        if(bannerEliminar.imagenBanner){
+            await imagen.eliminarImagen(bannerEliminar.imagenBanner);
             newBanner.imagenBanner = '';
             await modelBanner.findByIdAndUpdate(req.params.idBanner,newBanner);
         }

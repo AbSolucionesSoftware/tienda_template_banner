@@ -1,16 +1,28 @@
 const { Router } = require('express');
 const router = Router();
 const auth = require('../middleware/auth');
-const {subirImagen,createBanner,getBanners,agregateBanner,deleteBanner,eliminarImagen,editSubBanner,deleteSubCanner} = require('../controllers/bannerCategoria');
+const { 
+    subirImagen,
+    createBanner,
+    getBanners,
+    agregateBanner,
+    deleteBanner,
+    eliminarImagen,
+    editSubBanner,
+    deleteSubCanner,
+    publishedBanner
+} = require('../controllers/bannerCategoria');
 
 router.route('/')
     .get(getBanners)
-    .post(createBanner);
+    .post(auth,createBanner);
 
-router.route('/:idBanner').put(subirImagen,agregateBanner).delete(deleteBanner);
+router.route('/:idBanner').put(auth,subirImagen,agregateBanner).delete(auth,deleteBanner);
 
-router.route('/:idBanner/action/:idSubBanner').put(subirImagen,editSubBanner).delete(deleteSubCanner);
+router.route('/:idBanner/action/:idSubBanner').put(auth,subirImagen,editSubBanner).delete(auth,deleteSubCanner);
 
 router.route('/imagen/:idBanner').delete(auth,eliminarImagen);
+
+router.route('/publicar/:idBanner').post(auth,publishedBanner);
 
 module.exports = router;
