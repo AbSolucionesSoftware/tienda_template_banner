@@ -519,8 +519,8 @@ productosCtrl.getProductoSinPaginacion = async (req, res) => {
 productosCtrl.getProductosFiltrosDividos = async (req, res) => {
 	try {
 		const { categoria = '', subcategoria = '', genero = '', temporada = '' } = req.query;
-
 		var match = {};
+
 		if (categoria && !subcategoria && !genero && !temporada) {
 			match = {
 				$or: [ { eliminado: { $exists: false } }, { eliminado: false } ],
@@ -553,39 +553,85 @@ productosCtrl.getProductosFiltrosDividos = async (req, res) => {
 					{ temporada: { $regex: '.*' + temporada + '.*', $options: 'i' } }
 				]
 			};
-		} else if (subcategoria && !categoria && !genero && !temporada) {
+		} else if (categoria && !subcategoria && genero && !temporada ) {
 			match = {
 				$or: [ { eliminado: { $exists: false } }, { eliminado: false } ],
-				$and: [ { subCategoria: { $regex: '.*' + subcategoria + '.*', $options: 'i' } } ]
-			};
-		} else if (subcategoria && genero && !categoria && !temporada) {
-			match = {
-				$or: [ { eliminado: { $exists: false } }, { eliminado: false } ],
-				$and: [
-					{ subCategoria: { $regex: '.*' + subcategoria + '.*', $options: 'i' } },
-					{ genero: { $regex: '.*' + genero + '.*', $options: 'i' } }
-				]
-			};
-		} else if (subcategoria && genero && !categoria && temporada) {
-			match = {
-				$or: [ { eliminado: { $exists: false } }, { eliminado: false } ],
-				$and: [
-					{ subCategoria: { $regex: '.*' + subcategoria + '.*', $options: 'i' } },
-					{ genero: { $regex: '.*' + genero + '.*', $options: 'i' } }
-				]
-			};
-		} else if (categoria && genero && !subcategoria) {
-			match = {
-				$or: [ { eliminado: { $exists: false } }, { eliminado: false } ],
-				$and: [
+				$and: [ 
 					{ categoria: { $regex: '.*' + categoria + '.*', $options: 'i' } },
 					{ genero: { $regex: '.*' + genero + '.*', $options: 'i' } }
 				]
 			};
-		} else if (genero && !categoria && !subcategoria) {
+		} else if (categoria && subcategoria && !genero && temporada ) {
 			match = {
 				$or: [ { eliminado: { $exists: false } }, { eliminado: false } ],
-				$and: [ { genero: { $regex: '.*' + genero + '.*', $options: 'i' } } ]
+				$and: [
+					{ categoria: { $regex: '.*' + categoria + '.*', $options: 'i' } },
+					{ subCategoria: { $regex: '.*' + subcategoria + '.*', $options: 'i' } },
+					{ temporada: { $regex: '.*' + temporada + '.*', $options: 'i' } }
+				]
+			};
+		} else if (categoria && !subcategoria && !genero && temporada ) {
+			match = {
+				$or: [ { eliminado: { $exists: false } }, { eliminado: false } ],
+				$and: [
+					{ categoria: { $regex: '.*' + categoria + '.*', $options: 'i' } },
+					{ temporada: { $regex: '.*' + temporada + '.*', $options: 'i' } }
+				]
+			};
+		} else if (!categoria && subcategoria && !genero && !temporada ) {
+			match = {
+				$or: [ { eliminado: { $exists: false } }, { eliminado: false } ],
+				$and: [
+					{ subCategoria: { $regex: '.*' + subcategoria + '.*', $options: 'i' } }
+				]
+			};
+		} else if (!categoria && subcategoria && genero && !temporada ) {
+			match = {
+				$or: [ { eliminado: { $exists: false } }, { eliminado: false } ],
+				$and: [
+					{ genero: { $regex: '.*' + genero + '.*', $options: 'i' } },
+					{ subCategoria: { $regex: '.*' + subcategoria + '.*', $options: 'i' } }
+				]
+			};
+		} else if (!categoria && subcategoria && genero && temporada ) {
+			match = {
+				$or: [ { eliminado: { $exists: false } }, { eliminado: false } ],
+				$and: [
+					{ genero: { $regex: '.*' + genero + '.*', $options: 'i' } },
+					{ subCategoria: { $regex: '.*' + subcategoria + '.*', $options: 'i' } },
+					{ temporada: { $regex: '.*' + temporada + '.*', $options: 'i' } },
+
+				]
+			};
+		} else if (!categoria && subcategoria && !genero && temporada ) {
+			match = {
+				$or: [ { eliminado: { $exists: false } }, { eliminado: false } ],
+				$and: [
+					{ temporada: { $regex: '.*' + temporada + '.*', $options: 'i' } },
+					{ subCategoria: { $regex: '.*' + subcategoria + '.*', $options: 'i' } }
+				]
+			};
+		} else if (!categoria && !subcategoria && genero && !temporada ) {
+			match = {
+				$or: [ { eliminado: { $exists: false } }, { eliminado: false } ],
+				$and: [
+					{ genero: { $regex: '.*' + genero + '.*', $options: 'i' } },
+				]
+			};
+		} else if (!categoria && !subcategoria && genero && temporada ) {
+			match = {
+				$or: [ { eliminado: { $exists: false } }, { eliminado: false } ],
+				$and: [
+					{ genero: { $regex: '.*' + genero + '.*', $options: 'i' } },
+					{ temporada: { $regex: '.*' + temporada + '.*', $options: 'i' } }
+				]
+			};
+		} else if (!categoria && !subcategoria && !genero && temporada ) {
+			match = {
+				$or: [ { eliminado: { $exists: false } }, { eliminado: false } ],
+				$and: [
+					{ temporada: { $regex: '.*' + temporada + '.*', $options: 'i' } },
+				]
 			};
 		}
 
