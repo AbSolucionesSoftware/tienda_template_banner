@@ -56,7 +56,8 @@ bannerCtrl.createBanner = async (req,res) => {
 
 bannerCtrl.publishedBanner = async (req,res) => {
     try {
-        await modelBanner.findByIdAndUpdate(req.params.idBanner,{publicado: true});
+        const { publicado } = req.body;
+        await modelBanner.findByIdAndUpdate(req.params.idBanner,publicado);
         res.status(200).json({message: "Banner publicado"});
     } catch (error) {
         console.log(error);
