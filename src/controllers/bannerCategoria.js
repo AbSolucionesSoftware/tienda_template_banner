@@ -37,8 +37,17 @@ bannerCtrl.createBanner = async (req,res) => {
         console.log(req.body);
         const banner = new modelBanner(req.body);
         banner.publicado = false;
-        await banner.save();
-        res.status(200).json({message: "Banner creado correctamente."});
+        await banner.save((err, userStored) => {
+            if (err) {
+				res.status(500).json({ message: 'Ups, algo paso al crear el banner', err });
+			} else {
+				if (!userStored) {
+					res.status(404).json({ message: 'Error al crear el banner' });
+				} else {
+					res.status(200).json({ message: 'Banner creado correctamente.', userStored });
+				}
+			}
+        });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Error en el servidor",error });
