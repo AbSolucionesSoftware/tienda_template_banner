@@ -14,7 +14,7 @@ bannerCtrl.subirImagen = async (req,res,next) => {
 
 bannerCtrl.getBanners = async (req,res) => {
     try {
-        const banners = await modelBanner.find({publicado: true});
+        const banners = await modelBanner.find({publicado: true}).sort({createdAt: -1});
         res.status(200).json(banners);
     } catch (error) {
         console.log(error);
