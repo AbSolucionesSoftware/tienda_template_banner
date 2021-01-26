@@ -44,7 +44,7 @@ bannerCtrl.createBanner = async (req,res) => {
 				if (!userStored) {
 					res.status(404).json({ message: 'Error al crear el banner' });
 				} else {
-					res.status(200).json({ message: 'Banner creado correctamente.', banner: "Puro el que lo lea" });
+					res.status(200).json({ message: 'Banner creado correctamente.',  userStored });
 				}
 			}
         });
