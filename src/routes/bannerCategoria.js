@@ -26,6 +26,6 @@ router.route('/:idBanner/action/:idSubBanner').put(auth,subirImagen,editSubBanne
 
 router.route('/imagen/:idBanner').delete(auth,eliminarImagen);
 
-router.route('/publicar/:idBanner').post(auth,publishedBanner);
+router.route('/publicar/:idBanner').put(auth,publishedBanner);
 
 module.exports = router;
