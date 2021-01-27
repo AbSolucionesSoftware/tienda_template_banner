@@ -94,9 +94,19 @@ bannerCtrl.agregateBanner = async (req,res) => {
                 $addToSet: {
                     banners: [ banner ]
                 }
+            },(err, userStored) => {
+                if (err) {
+                    res.status(500).json({ message: 'Ups, algo paso al crear el banner', err });
+                } else {
+                    if (!userStored) {
+                        res.status(404).json({ message: 'Error al crear el banner' });
+                    } else {
+                        res.status(200).json({ message: 'Banner agregado correctamente.',  userStored });
+                    }
+                }
             }
         )
-        res.status(200).json({message: "Banner agregado correctamente."});
+        //res.status(200).json({message: "Banner agregado correctamente."});
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Error en el servidor",error });
@@ -144,11 +154,20 @@ bannerCtrl.editSubBanner = async (req,res) => {
                 },
                 {
                     $set: { 'banners.$': newBanner}
+                },(err, userStored) => {
+                if (err) {
+                    res.status(500).json({ message: 'Ups, algo paso al crear el banner', err });
+                } else {
+                    if (!userStored) {
+                        res.status(404).json({ message: 'Error al crear el banner' });
+                    } else {
+                        res.status(200).json({ message: 'Banner editado correctamente.',  userStored });
+                    }
                 }
-            )
+            })
         })
 
-        res.status(200).json({message: "Registro echo"});
+        //res.status(200).json({message: "Registro echo"});
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Error en el servidor",error });
