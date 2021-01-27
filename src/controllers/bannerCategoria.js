@@ -123,7 +123,7 @@ bannerCtrl.editSubBanner = async (req,res) => {
             if(req.file){
                 newBanner.imagenBanner = req.file.key;
                 if(bannerBase.imagenBanner){
-                    imagen.eliminarImagen(bannerBase.imagenBanner);s
+                    imagen.eliminarImagen(bannerBase.imagenBanner);
                 }
             }else{
                 newBanner.imagenBanner = bannerBase.imagenBanner;
