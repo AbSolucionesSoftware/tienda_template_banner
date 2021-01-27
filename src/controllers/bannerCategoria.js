@@ -110,6 +110,7 @@ bannerCtrl.editSubBanner = async (req,res) => {
         const banners = subBanner.filter((x) => x._id == req.params.idSubBanner);
         //console.log(banners);
         console.log(req.body);
+        console.log(req.file);
         banners.map(async (bannerBase) => {
             const { orientacion ,vincular ,mostrarProductos ,mostrarTitulo , categoria, temporada} = req.body;
             
