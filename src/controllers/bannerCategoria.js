@@ -54,6 +54,16 @@ bannerCtrl.createBanner = async (req,res) => {
     }
 }
 
+bannerCtrl.getBanner = async (req,res) => {
+    try {
+        const banner =  await modelBanner.findById(req.params.idBanner);
+        res.status(200).json(banner);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error en el servidor",error });
+    }
+}
+
 bannerCtrl.publishedBanner = async (req,res) => {
     try {
         const { publicado } = req.body;
