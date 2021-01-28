@@ -33,9 +33,6 @@ const TiendaSchema = new Schema({
         lat: String,
         lng: String
     }],
-    politicas: {
-        type: String
-    },
     imagenCorp: {
         type: String
     },
@@ -46,6 +43,11 @@ const TiendaSchema = new Schema({
     linkFace: String,
     linkInsta: String,
     linkTweeter: String,
+    politicas: String,
+    politicasVentas: String,
+    politicasEnvios: String,
+    politicasDescuentos: String,
+    politicasDevolucion: String
 });
 
 module.exports = model('tienda', TiendaSchema);
