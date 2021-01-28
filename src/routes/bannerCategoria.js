@@ -11,9 +11,9 @@ const {
     editSubBanner,
     deleteSubCanner,
     publishedBanner,
-    getBannersAdmin
+    getBannersAdmin,
+    getBanner
 } = require('../controllers/bannerCategoria');
-
 
 router.route('/')
     .get(getBanners)
