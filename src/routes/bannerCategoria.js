@@ -14,6 +14,7 @@ const {
     getBannersAdmin
 } = require('../controllers/bannerCategoria');
 
+
 router.route('/')
     .get(getBanners)
     .post(auth,createBanner);
