@@ -56,6 +56,7 @@ tiendaCtrl.crearTienda = async (req, res) => {
 
 tiendaCtrl.politicasEmpresa = async (req,res) => {
     try {
+        console.log(req.body);
         //{politicas,PoliticasVentas,PoliticasEnvios,PoliticasDescuentos,PoliticasDevolucion}
         await Tienda.findByIdAndUpdate(req.params.idTienda,req.body);
         res.status(200).json({message: "Politicas agregadas"});
