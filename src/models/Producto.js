@@ -48,6 +48,8 @@ const ProductoSchema = new mongoose.Schema({
 	activo: Boolean,
 	eliminado: Boolean,
 	temporada: String
+},{
+	timestamps: true
 });
 
 ProductoSchema.plugin(mongoodePaginate);

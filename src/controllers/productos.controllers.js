@@ -644,6 +644,9 @@ productosCtrl.getProductosFiltrosDividos = async (req, res) => {
 						as: 'promocion'
 					}
 				},
+				{ 
+					$sort: { createdAt: -1 } 
+				},
 				{
 					$match: match
 				}
@@ -659,7 +662,7 @@ productosCtrl.getProductosFiltrosDividos = async (req, res) => {
 					}
 				}
 			}
-		).sort({createdAt: -1});
+		);
 	} catch (err) {
 		res.status(500).json({ message: 'Error en el servidor', err });
 	}
