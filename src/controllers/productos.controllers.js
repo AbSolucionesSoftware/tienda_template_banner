@@ -750,7 +750,7 @@ productosCtrl.getProductosFiltrados = async (req, res) => {
 };
 
 productosCtrl.getProductosFiltradosAdmin = async (req, res) => {
-	const { codigo, nombre, categoria, subcategoria, genero, color } = req.query;
+	const { codigo, nombre, categoria, subcategoria, genero, color , temporada} = req.query;
 	try {
 		await Producto.aggregate(
 			[
