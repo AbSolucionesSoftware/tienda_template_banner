@@ -645,6 +645,9 @@ productosCtrl.getProductosFiltrosDividos = async (req, res) => {
 					}
 				},
 				{
+					$sort: { createdAt: -1 }
+				},
+				{
 					$match: match
 				}
 			],
