@@ -15,7 +15,7 @@ router.route('/')
     .post(auth,subirImagen,crearTienda)
     .get(obtenerTienda)
 
-router.route('/politicas/:idTienda').put(auth,politicasEmpresa)
+router.route('/politicas/:idTienda').put(auth,politicasEmpresa);
 
 router.route('/:idTienda')
     .put(auth,subirImagen,actualizarTienda)
