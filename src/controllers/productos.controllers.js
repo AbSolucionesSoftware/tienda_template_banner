@@ -1153,8 +1153,8 @@ productosCtrl.categoriasAgrupadas = async (req, res) => {
 			res.status(200).json(arrayCategorias);
 			console.log(arrayCategorias);
 		});
-		res.status(200).json(categorias);
-		console.log(categorias);
+		/* res.status(200).json(categorias);
+		console.log(categorias); */
 	} catch (err) {
 		res.status(500).json({ message: 'Error en el servidor', err });
 	}
