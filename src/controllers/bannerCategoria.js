@@ -77,7 +77,7 @@ bannerCtrl.publishedBanner = async (req,res) => {
 
 bannerCtrl.agregateBanner = async (req,res) => {
     try {
-        const {orientacion,vincular,mostrarProductos,mostrarTitulo,categoria,temporada} = req.body;
+        const {orientacion,vincular,mostrarProductos,mostrarTitulo,categoria,temporada,genero} = req.body;
         const banner = {
             tipo: {}
         };
@@ -95,6 +95,9 @@ bannerCtrl.agregateBanner = async (req,res) => {
         }
         if(temporada){
             banner.tipo.temporada = temporada;
+        }
+        if(genero){
+            banner.tipo.genero = genero;
         }
         await modelBanner.updateOne(
             {
