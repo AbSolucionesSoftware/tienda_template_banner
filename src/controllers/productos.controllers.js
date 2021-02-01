@@ -1144,7 +1144,7 @@ productosCtrl.categoriasAgrupadas = async (req, res) => {
 							}
 						);
 						arrayCategorias.push({
-							categoria: categorias[i]._id,
+							_id: categorias[i]._id,
 							tipoCategoria: tipoCategoriaBase
 						});
 					}
