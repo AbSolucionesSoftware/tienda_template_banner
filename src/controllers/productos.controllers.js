@@ -5,10 +5,8 @@ const promocionModel = require('../models/PromocionProducto');
 const sugerenciaModel = require('../models/Sugerencia');
 const galeriaModel = require('../models/Galeria');
 const corouselModel = require('../models/Carousel');
-const carritoModel = require('../models/Carrito');
 const mongoose = require('mongoose')
 const util = require('util')
-const sleep = util.promisify(setTimeout);
 
 productosCtrl.deleteImagen = async (req, res) => {
 	try {
@@ -929,19 +927,6 @@ productosCtrl.createProducto = async (req, res) => {
 	}
 };
 
-/* productosCtrl.getProducto = async (req, res, next) => {
-	try {
-		const producto = await Producto.findById(req.params.id);
-		if (!producto) {
-			res.status(404).json({ message: 'Este producto no existe' });
-			return next();
-		}
-		res.status(200).json(producto);
-	} catch (err) {
-		res.status(500).json({ message: 'Error en el servidor', err });
-	}
-}; */
-
 productosCtrl.updateProducto = async (req, res, next) => {
 	try {
 		const productoDeBase = await Producto.findById(req.params.id);
@@ -1113,7 +1098,7 @@ productosCtrl.tipoCategoriasAgrupadas = async (req, res) => {
 
 productosCtrl.categoriasAgrupadas = async (req, res) => {
 	try {
-		const categorias = await Producto.aggregate([
+		await Producto.aggregate([
 			{
 				$match: {
 					$or: [ { eliminado: { $exists: false } }, { eliminado: false } ]
@@ -1153,8 +1138,6 @@ productosCtrl.categoriasAgrupadas = async (req, res) => {
 			res.status(200).json(arrayCategorias);
 			console.log(arrayCategorias);
 		});
-		/* res.status(200).json(categorias);
-		console.log(categorias); */
 	} catch (err) {
 		res.status(500).json({ message: 'Error en el servidor', err });
 	}
