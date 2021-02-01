@@ -1128,7 +1128,7 @@ productosCtrl.categoriasAgrupadas = async (req, res) => {
 			for (i = 0; i < categorias.length; i++) {
 				if (categorias[i]._id !== null) {
 					if (categorias[i]._id) {
-					const tipoCategoriaBase =await Producto.aggregate(
+					const tipoCategoriaBase = await Producto.aggregate(
 							[
 								{
 									$match: {
@@ -1145,7 +1145,7 @@ productosCtrl.categoriasAgrupadas = async (req, res) => {
 						);
 						arrayCategorias.push({
 							_id: categorias[i]._id,
-							tipoCategoria: tipoCategoriaBase
+							tipoCategoria: tipoCategoriaBase[0]._id
 						});
 					}
 				}
