@@ -14,7 +14,7 @@ tiendaCtrl.subirImagen = async (req,res,next) => {
 
 tiendaCtrl.crearTienda = async (req, res) => {
     console.log(req.body);
-    const {nombre,telefono,calle_numero,cp,colonia,ciudad,lat,lng,imagenCorp,linkFace,linkInsta,linkTweeter,estado} = req.body;
+    const {nombre,telefono,calle_numero,cp,colonia,ciudad,imagenCorp,linkFace,linkInsta,linkTweeter,estado} = req.body;
     let phone = "";
     if(telefono){
         phone = telefono.trim(" ");
@@ -31,10 +31,6 @@ tiendaCtrl.crearTienda = async (req, res) => {
             colonia:colonia,
             ciudad:ciudad,
             estado:estado
-        }],
-        ubicacion:[{
-            lat:lat,
-            lng:lng
         }],
         imagenCorp:imagenCorp,
         linkFace:linkFace,
