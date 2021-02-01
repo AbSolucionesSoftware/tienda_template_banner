@@ -10,8 +10,9 @@ const bannerCategoria = new Schema({
         mostrarTitulo: Boolean,
         tipo: {
             categoria: String,
-            temporada: String
-        }
+            temporada: String,
+            genero: String
+        },
     }],
     publicado: Boolean
 },{
