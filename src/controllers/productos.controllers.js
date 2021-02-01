@@ -1120,7 +1120,39 @@ productosCtrl.categoriasAgrupadas = async (req, res) => {
 				}
 			},
 			{ $group: { _id: '$categoria' } }
-		]);
+		],
+		async function(err, categorias) {
+			arrayCategorias = [];
+			console.log(categorias);
+			console.log(categorias.length);
+			for (i = 0; i < categorias.length; i++) {
+				if (categorias[i]._id !== null) {
+					if (categorias[i]._id) {
+					const tipoCategoriaBase =await Producto.aggregate(
+							[
+								{
+									$match: {
+										$or: [ { categoria: categorias[i]._id } ]
+									}
+								},
+								{
+									$group: { _id: '$tipoCategoria' }
+								}
+							],
+							async function(err, tipoCategoriaBase) {
+								return tipoCategoriaBase;
+							}
+						);
+						arrayCategorias.push({
+							categoria: categorias[i]._id,
+							tipoCategoria: tipoCategoriaBase
+						});
+					}
+				}
+			}
+			res.status(200).json(arrayCategorias);
+			console.log(arrayCategorias);
+		});
 		res.status(200).json(categorias);
 		console.log(categorias);
 	} catch (err) {
