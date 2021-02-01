@@ -78,6 +78,7 @@ bannerCtrl.publishedBanner = async (req,res) => {
 bannerCtrl.agregateBanner = async (req,res) => {
     try {
         const {orientacion,vincular,mostrarProductos,mostrarTitulo,categoria,temporada,genero} = req.body;
+        console.log(req.body);
         const banner = {
             tipo: {}
         };
