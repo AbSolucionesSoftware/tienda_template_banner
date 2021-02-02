@@ -5,8 +5,7 @@ const promocionModel = require('../models/PromocionProducto');
 const sugerenciaModel = require('../models/Sugerencia');
 const galeriaModel = require('../models/Galeria');
 const corouselModel = require('../models/Carousel');
-const mongoose = require('mongoose')
-const util = require('util')
+const mongoose = require('mongoose');
 
 productosCtrl.deleteImagen = async (req, res) => {
 	try {

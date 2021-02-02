@@ -26,7 +26,7 @@ const TiendaSchema = new Schema({
         }
     ],
     telefono: {
-        type: Number,
+        type: String,
         required: true
     },
     ubicacion: [{
