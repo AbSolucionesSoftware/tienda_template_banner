@@ -630,7 +630,12 @@ productosCtrl.getProductosFiltrosDividos = async (req, res) => {
 					{ temporada: { $regex: '.*' + temporada + '.*', $options: 'i' } },
 				]
 			};
+		}else{
+			match = {
+				$or: [ { eliminado: { $exists: false } }, { eliminado: false } ]
+			};
 		}
+
 		await Producto.aggregate(
 			[
 				{
