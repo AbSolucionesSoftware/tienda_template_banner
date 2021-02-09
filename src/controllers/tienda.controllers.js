@@ -14,7 +14,7 @@ tiendaCtrl.subirImagen = async (req,res,next) => {
 
 tiendaCtrl.crearTienda = async (req, res) => {
     console.log(req.body);
-    const {nombre,telefono,calle_numero,cp,colonia,ciudad,imagenCorp,linkFace,linkInsta,linkTweeter,estado} = req.body;
+    const {nombre,telefono,calle_numero,cp,colonia,ciudad,imagenCorp,linkFace,linkInsta,linkTweeter,estado, horariosEmpresa, diasEmpresas} = req.body;
     let phone = "";
     if(telefono){
         phone = telefono.trim(" ");
@@ -35,7 +35,9 @@ tiendaCtrl.crearTienda = async (req, res) => {
         imagenCorp:imagenCorp,
         linkFace:linkFace,
         linkInsta:linkInsta,
-        linkTweeter:linkTweeter
+        linkTweeter:linkTweeter,
+        horariosEmpresa: horariosEmpresa,
+        diasEmpresas: diasEmpresas
     });
     newTienda.activo = true;
     if(req.file){
